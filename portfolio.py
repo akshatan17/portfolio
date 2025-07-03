@@ -149,7 +149,7 @@ with tabs[0]:
 
     st.markdown("""
     <div class="highlight">
-    I'm passionate about artificial intelligence and coding—and when I'm not doing that, you'll find me caring for animals or exploring the world of neurotechnology.
+    I'm passionate about artificial intelligence and coding—and when I'm not doing that, you'll find me caring for animals or reading a book
     </div>
     """, unsafe_allow_html=True)
 
@@ -198,12 +198,12 @@ with tabs[0]:
     # --- Testimonials ---
     st.markdown("<div class='section-title'>💬 Testimonials</div>", unsafe_allow_html=True)
     st.markdown("<div class='testimonial'>“Akshata has a brilliant mind for AI and a kind heart for animals.” – Mentor</div>", unsafe_allow_html=True)
-    st.markdown("<div class='testimonial'>“Her work ethic and creativity are unmatched. A joy to collaborate with.” – Peer</div>", unsafe_allow_html=True)
+    st.markdown("<div class='testimonial'>Her work ethic and creativity are unmatched. A joy to collaborate with.” – Peer</div>", unsafe_allow_html=True)
 
 # --- Photos ---
 with tabs[1]:
     st.markdown("<h1 class='tab-title'>📷 Photos</h1>", unsafe_allow_html=True)
-    st.info("Photo gallery coming soon!")
+    st.markdown("Photo gallery coming soon!")
 
 # --- Certificates ---
 with tabs[2]:
