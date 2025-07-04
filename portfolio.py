@@ -1,5 +1,5 @@
 import streamlit as st
-
+import os
 # --- Page Config ---
 st.set_page_config(page_title="Akshata Nagaraj | Portfolio", layout="wide", page_icon="🌿")
 
@@ -13,41 +13,27 @@ st.markdown("""
         background-color: #f5f5dc;
         color: #2f4f4f;
         font-family: 'Segoe UI', sans-serif;
-        transition: all 0.5s ease-in-out;
-    }
-    a {
-        color: #3b7d5f;
-        text-decoration: none;
-        transition: color 0.3s ease;
-    }
-    a:hover {
-        text-decoration: underline;
-        color: #1d5c3d;
     }
     h1, h2, h3 {
         color: #2f4f4f;
-        transition: all 0.3s ease-in-out;
     }
     .highlight {
         background-color: #e2f0cb;
         padding: 0.75rem;
         border-radius: 10px;
         font-size: 1.05rem;
-        animation: fadeIn 0.7s ease-in-out;
     }
     .section-title {
         margin-top: 2rem;
         font-size: 1.4rem;
         font-weight: bold;
         color: #264d3a;
-        animation: fadeInUp 0.7s ease-in-out;
     }
     .footer {
         margin-top: 3rem;
         text-align: center;
         font-size: 0.9rem;
         color: #556b2f;
-        animation: fadeIn 1s ease-in-out;
     }
     .icon-link {
         display: flex;
@@ -55,7 +41,6 @@ st.markdown("""
         gap: 8px;
         margin: 5px 0;
         font-size: 1.05rem;
-        transition: all 0.3s ease;
     }
     .icon-link img {
         width: 20px;
@@ -66,15 +51,12 @@ st.markdown("""
         font-size: 2rem !important;
         font-weight: bold;
         color: #000000 !important;
-        animation: fadeInDown 0.6s ease-in-out;
     }
     .stTabs [role="tab"] {
         justify-content: center;
         color: #000000 !important;
         font-weight: bold;
         font-size: 2rem;
-        border: none !important;
-        box-shadow: none !important;
         background: transparent !important;
     }
     .stTabs [role="tab"][aria-selected="true"] {
@@ -87,19 +69,13 @@ st.markdown("""
         margin-top: 1rem;
         border-radius: 10px;
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        transition: transform 0.3s ease;
-        animation: fadeInUp 0.6s ease-in-out;
-    }
-    .project-card:hover {
-        transform: translateY(-5px);
     }
     .skills-list li {
-        animation: fadeIn 1s ease-in-out both;
+        margin-bottom: 0.5rem;
     }
     .testimonial {
         font-style: italic;
         margin-bottom: 1rem;
-        animation: fadeIn 0.8s ease-in-out;
     }
     .fun-facts {
         margin-top: 1rem;
@@ -107,7 +83,6 @@ st.markdown("""
         padding-left: 0;
         font-size: 1.1rem;
         color: #2f4f4f;
-        animation: fadeIn 1s ease-in-out;
     }
     .fun-facts li {
         margin-bottom: 0.8rem;
@@ -115,18 +90,6 @@ st.markdown("""
         padding: 0.7rem 1rem;
         border-radius: 10px;
         box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
-    @keyframes fadeIn {
-        from {opacity: 0;}
-        to {opacity: 1;}
-    }
-    @keyframes fadeInUp {
-        from {opacity: 0; transform: translateY(20px);}
-        to {opacity: 1; transform: translateY(0);}
-    }
-    @keyframes fadeInDown {
-        from {opacity: 0; transform: translateY(-20px);}
-        to {opacity: 1; transform: translateY(0);}
     }
     </style>
 """, unsafe_allow_html=True)
@@ -145,7 +108,6 @@ with tabs[0]:
     </div>
     """, unsafe_allow_html=True)
 
-    # Social Links
     st.markdown("<div class='section-title'>🔗 Connect with me</div>", unsafe_allow_html=True)
     st.markdown("""
     <div class="icon-link">
@@ -165,20 +127,17 @@ with tabs[0]:
     </div>
     """, unsafe_allow_html=True)
 
-    # Projects
     st.markdown("<div class='section-title'>🛠️ Projects</div>", unsafe_allow_html=True)
     st.markdown("""
 <div class='project-card'>
     <strong>1) Hiveminds Internship — RAG PDF Assistant</strong><br>
-    Built a user-friendly RAG (Retrieval-Augmented Generation) interface allowing users to upload PDFs and ask questions. Integrated with Gemini AI and deployed on Streamlit.
+    Built a user-friendly RAG interface allowing users to upload PDFs and ask questions. Integrated with Gemini AI and deployed on Streamlit.
     <br><br>
     <strong>2) Ongoing Project — Facial Expressions Detector</strong><br>
     Simple code that can identify your emotions based on your facial expressions.
 </div>
+""", unsafe_allow_html=True)
 
-    """, unsafe_allow_html=True)
-
-    # Skills
     st.markdown("<div class='section-title'>🧠 Skills</div>", unsafe_allow_html=True)
     col1, col2 = st.columns(2)
     with col1:
@@ -188,16 +147,14 @@ with tabs[0]:
         st.markdown("#### Databases 💾")
         st.markdown("<ul class='skills-list'><li>SQL</li><li>MySQL</li></ul>", unsafe_allow_html=True)
 
-    # Testimonials
     st.markdown("<div class='section-title'>💬 Testimonials</div>", unsafe_allow_html=True)
     st.markdown("<div class='testimonial'>“Akshata has a brilliant mind for AI and a kind heart for animals.” – Mentor</div>", unsafe_allow_html=True)
     st.markdown("<div class='testimonial'>“Her work ethic and creativity are unmatched. A joy to collaborate with.” – Peer</div>", unsafe_allow_html=True)
 
-    # Fun Facts
     st.markdown("<div class='section-title'>✨ Fun Facts About Me</div>", unsafe_allow_html=True)
     st.markdown("""
     <ul class='fun-facts'>
-        <li>🏀 I love coding—but I also enjoy playing sports, specifically Basketball.</li>
+        <li>🏀 I love coding—but I also enjoy playing sports, especially Basketball.</li>
         <li>🐾 I love taking care of rescued animals, and I volunteer at a local shelter.</li>
         <li>📚 I unwind by reading books, listening to music, or watching a movie.</li>
     </ul>
@@ -211,11 +168,25 @@ with tabs[1]:
 # --- Certificates ---
 with tabs[2]:
     st.markdown("<h1 class='tab-title'>📜 Certificates</h1>", unsafe_allow_html=True)
-    st.markdown("Certificates will be added shortly.")
+
+    cert_folder = "certificates"
+    cert_files = [f for f in os.listdir(cert_folder) if f.endswith((".png", ".jpg", ".jpeg"))]
+
+    if not cert_files:
+        st.info("No certificates found yet.")
+    else:
+        for i in range(0, len(cert_files), 3):
+            cols = st.columns(3)
+            for j in range(3):
+                if i + j < len(cert_files):
+                    cert_path = os.path.join(cert_folder, cert_files[i + j])
+                    with cols[j]:
+                        st.image(cert_path, use_container_width=True, caption=cert_files[i + j].split('.')[0].replace('_', ' '))
+
 
 # --- Footer ---
 st.markdown("""
 <div class="footer">
-Made with ❤️ using Streamlit | © 2025 Akshata Nagaraj
+Made with ❤️ using Streamlit | © 2025 Akshata Nagaraj  
 </div>
 """, unsafe_allow_html=True)
