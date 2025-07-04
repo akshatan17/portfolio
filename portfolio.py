@@ -1,9 +1,10 @@
 import streamlit as st
 import os
+
+
 # --- Page Config ---
 st.set_page_config(page_title="Akshata Nagaraj | Portfolio", layout="wide", page_icon="🌿")
-
-# --- Custom CSS ---
+# --- Custom CSS ----
 st.markdown("""
     <style>
     body {
@@ -64,10 +65,10 @@ st.markdown("""
         background-color: transparent !important;
     }
     .project-card {
-        background-color: #ffffff;
+        background-color: #f5f5dc;
         padding: 1rem;
         margin-top: 1rem;
-        border-radius: 10px;
+        border-radius: 20px;
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
     .skills-list li {
@@ -134,8 +135,12 @@ with tabs[0]:
     Built a user-friendly RAG interface allowing users to upload PDFs and ask questions. Integrated with Gemini AI and deployed on Streamlit.
     <br><br>
     <strong>2) Ongoing Project — Facial Expressions Detector</strong><br>
-    Simple code that can identify your emotions based on your facial expressions.
+    Simple app that identifies your emotions based on your facial expressions using a webcam.
+    <br><br>
+    <strong>3) Ongoing Project — EduTech Tools</strong><br>
+    Tools like flashcard generators from uploaded PDF files to assist in student learning.
 </div>
+
 """, unsafe_allow_html=True)
 
     st.markdown("<div class='section-title'>🧠 Skills</div>", unsafe_allow_html=True)
@@ -163,7 +168,21 @@ with tabs[0]:
 # --- Photos ---
 with tabs[1]:
     st.markdown("<h1 class='tab-title'>📷 Photos</h1>", unsafe_allow_html=True)
-    st.markdown("Photo gallery coming soon!")
+
+    photo_folder = "photos"  # Ensure you have a "photos" folder with your images
+    photo_files = [f for f in os.listdir(photo_folder) if f.endswith((".png", ".jpg", ".jpeg"))]
+
+    if not photo_files:
+        st.info("No photos found yet.")
+    else:
+        for i in range(0, len(photo_files), 3):
+            cols = st.columns(3)
+            for j in range(3):
+                if i + j < len(photo_files):
+                    photo_path = os.path.join(photo_folder, photo_files[i + j])
+                    with cols[j]:
+                        st.image(photo_path, use_container_width=True, caption=photo_files[i + j].split('.')[0].replace('_', ' '))
+
 
 # --- Certificates ---
 with tabs[2]:
