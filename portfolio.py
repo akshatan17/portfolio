@@ -35,10 +35,6 @@ st.markdown("""
         font-size: 1.05rem;
         animation: fadeIn 0.7s ease-in-out;
     }
-    .contact-info {
-        margin-top: 1em;
-        font-size: 1rem;
-    }
     .section-title {
         margin-top: 2rem;
         font-size: 1.4rem;
@@ -72,8 +68,6 @@ st.markdown("""
         color: #000000 !important;
         animation: fadeInDown 0.6s ease-in-out;
     }
-
-    /* --- TAB OVERRIDES --- */
     .stTabs [role="tab"] {
         justify-content: center;
         color: #000000 !important;
@@ -81,29 +75,12 @@ st.markdown("""
         font-size: 2rem;
         border: none !important;
         box-shadow: none !important;
-        border-bottom: none !important;
-        outline: none !important;
         background: transparent !important;
-    }
-    .stTabs [role="tab"]:hover {
-        color: #000000;
     }
     .stTabs [role="tab"][aria-selected="true"] {
         border-bottom: 3px solid black !important;
-        box-shadow: none !important;
         background-color: transparent !important;
     }
-    .stTabs [role="tab"]:focus {
-        outline: none !important;
-        box-shadow: none !important;
-        border: none !important;
-    }
-    .stTabs [role="tab"]:focus-visible {
-        outline: none !important;
-        box-shadow: none !important;
-        border: none !important;
-    }
-
     .project-card {
         background-color: #ffffff;
         padding: 1rem;
@@ -124,6 +101,21 @@ st.markdown("""
         margin-bottom: 1rem;
         animation: fadeIn 0.8s ease-in-out;
     }
+    .fun-facts {
+        margin-top: 1rem;
+        list-style-type: none;
+        padding-left: 0;
+        font-size: 1.1rem;
+        color: #2f4f4f;
+        animation: fadeIn 1s ease-in-out;
+    }
+    .fun-facts li {
+        margin-bottom: 0.8rem;
+        background-color: #e2f0cb;
+        padding: 0.7rem 1rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
     @keyframes fadeIn {
         from {opacity: 0;}
         to {opacity: 1;}
@@ -139,7 +131,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# --- Top Menu Navigation ---
+# --- Tabs ---
 tabs = st.tabs(["👤 About Me", "📷 Photos", "📜 Certificates"])
 
 # --- About Me ---
@@ -149,24 +141,21 @@ with tabs[0]:
 
     st.markdown("""
     <div class="highlight">
-    I'm passionate about artificial intelligence and coding—and when I'm not doing that, you'll find me caring for animals or reading a book
+    I'm passionate about artificial intelligence and coding—and when I'm not doing that, you'll find me caring for animals or reading a book.
     </div>
     """, unsafe_allow_html=True)
 
-    # --- Social Links with Icons ---
+    # Social Links
     st.markdown("<div class='section-title'>🔗 Connect with me</div>", unsafe_allow_html=True)
     st.markdown("""
     <div class="icon-link">
-        <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub">
-        <a href="https://github.com/akshatan17" target="_blank">GitHub</a>
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png"><a href="https://github.com/akshatan17" target="_blank">GitHub</a>
     </div>
     <div class="icon-link">
-        <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn">
-        <a href="https://www.linkedin.com/in/akshata-nagaraj-4147842b8/" target="_blank">LinkedIn</a>
+        <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png"><a href="https://www.linkedin.com/in/akshata-nagaraj-4147842b8/" target="_blank">LinkedIn</a>
     </div>
     <div class="icon-link">
-        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
-        <a href="https://instagram.com/akshata_1704" target="_blank">Instagram</a>
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png"><a href="https://instagram.com/akshata_1704" target="_blank">Instagram</a>
     </div>
     <div class="icon-link">
         📧 <a href="mailto:akshatanagaraj1704@gmail.com">akshatanagaraj1704@gmail.com</a>
@@ -176,16 +165,20 @@ with tabs[0]:
     </div>
     """, unsafe_allow_html=True)
 
-    # --- Projects ---
+    # Projects
     st.markdown("<div class='section-title'>🛠️ Projects</div>", unsafe_allow_html=True)
     st.markdown("""
-    <div class='project-card'>
-    <strong>Hiveminds Internship — RAG PDF Assistant</strong><br>
-    Built a user-friendly RAG (Retrieval-Augmented Generation) interface allowing users to upload PDFs and ask questions. Integrated with Gemini AI and deployed on Streamlit to provide real-time, context-aware answers.
-    </div>
+<div class='project-card'>
+    <strong>1) Hiveminds Internship — RAG PDF Assistant</strong><br>
+    Built a user-friendly RAG (Retrieval-Augmented Generation) interface allowing users to upload PDFs and ask questions. Integrated with Gemini AI and deployed on Streamlit.
+    <br><br>
+    <strong>2) Ongoing Project — Facial Expressions Detector</strong><br>
+    Simple code that can identify your emotions based on your facial expressions.
+</div>
+
     """, unsafe_allow_html=True)
 
-    # --- Skills ---
+    # Skills
     st.markdown("<div class='section-title'>🧠 Skills</div>", unsafe_allow_html=True)
     col1, col2 = st.columns(2)
     with col1:
@@ -195,10 +188,20 @@ with tabs[0]:
         st.markdown("#### Databases 💾")
         st.markdown("<ul class='skills-list'><li>SQL</li><li>MySQL</li></ul>", unsafe_allow_html=True)
 
-    # --- Testimonials ---
+    # Testimonials
     st.markdown("<div class='section-title'>💬 Testimonials</div>", unsafe_allow_html=True)
     st.markdown("<div class='testimonial'>“Akshata has a brilliant mind for AI and a kind heart for animals.” – Mentor</div>", unsafe_allow_html=True)
-    st.markdown("<div class='testimonial'>Her work ethic and creativity are unmatched. A joy to collaborate with.” – Peer</div>", unsafe_allow_html=True)
+    st.markdown("<div class='testimonial'>“Her work ethic and creativity are unmatched. A joy to collaborate with.” – Peer</div>", unsafe_allow_html=True)
+
+    # Fun Facts
+    st.markdown("<div class='section-title'>✨ Fun Facts About Me</div>", unsafe_allow_html=True)
+    st.markdown("""
+    <ul class='fun-facts'>
+        <li>🏀 I love coding—but I also enjoy playing sports, specifically Basketball.</li>
+        <li>🐾 I love taking care of rescued animals, and I volunteer at a local shelter.</li>
+        <li>📚 I unwind by reading books, listening to music, or watching a movie.</li>
+    </ul>
+    """, unsafe_allow_html=True)
 
 # --- Photos ---
 with tabs[1]:
@@ -208,11 +211,11 @@ with tabs[1]:
 # --- Certificates ---
 with tabs[2]:
     st.markdown("<h1 class='tab-title'>📜 Certificates</h1>", unsafe_allow_html=True)
-    st.info("Certificates will be added shortly.")
+    st.markdown("Certificates will be added shortly.")
 
 # --- Footer ---
 st.markdown("""
 <div class="footer">
 Made with ❤️ using Streamlit | © 2025 Akshata Nagaraj
 </div>
-""", unsafe_allow_html=True)    
+""", unsafe_allow_html=True)
