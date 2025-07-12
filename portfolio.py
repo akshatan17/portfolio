@@ -1,7 +1,5 @@
 import streamlit as st
 import os
-
-
 # --- Page Config ---
 st.set_page_config(page_title="Akshata Nagaraj | Portfolio", layout="wide", page_icon="🌿")
 # --- Custom CSS ----
@@ -101,8 +99,7 @@ tabs = st.tabs(["👤 About Me", "📷 Photos", "📜 Certificates"])
 # --- About Me ---
 with tabs[0]:
     st.markdown("<h1 class='tab-title'>👋 Akshata Nagaraj</h1>", unsafe_allow_html=True)
-    st.markdown("<h3 class='tab-title'>AI/ML Enthusiast | Creative Coder | Animal Lover</h3>", unsafe_allow_html=True)
-
+    st.markdown("<h3 class='tab-title'>Full Stack Developer | Creative Coder | Animal Lover</h3>", unsafe_allow_html=True)
     st.markdown("""
     <div class="highlight">
     I'm passionate about artificial intelligence and coding—and when I'm not doing that, you'll find me caring for animals or reading a book.
@@ -153,7 +150,7 @@ with tabs[0]:
         st.markdown("<ul class='skills-list'><li>SQL</li><li>MySQL</li></ul>", unsafe_allow_html=True)
 
     st.markdown("<div class='section-title'>💬 Testimonials</div>", unsafe_allow_html=True)
-    st.markdown("<div class='testimonial'>“Akshata has a brilliant mind for AI and a kind heart for animals.” – Mentor</div>", unsafe_allow_html=True)
+    st.markdown("<div class='testimonial'>“Akshata has a brilliant mind for AI and a kind heart for animals.” – peer</div>", unsafe_allow_html=True)
     st.markdown("<div class='testimonial'>“Her work ethic and creativity are unmatched. A joy to collaborate with.” – Peer</div>", unsafe_allow_html=True)
 
     st.markdown("<div class='section-title'>✨ Fun Facts About Me</div>", unsafe_allow_html=True)
@@ -206,6 +203,6 @@ with tabs[2]:
 # --- Footer ---
 st.markdown("""
 <div class="footer">
-Made with ❤️ using Streamlit | © 2025 Akshata Nagaraj  
+Made with ❤️ using Streamlit | © 2025 Akshata Nagaraj 
 </div>
 """, unsafe_allow_html=True)
