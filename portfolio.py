@@ -102,7 +102,8 @@ with tabs[0]:
     st.markdown("<h3 class='tab-title'>Full Stack Developer | Creative Coder | Animal Lover</h3>", unsafe_allow_html=True)
     st.markdown("""
     <div class="highlight">
-    I'm passionate about artificial intelligence and coding—and when I'm not doing that, you'll find me caring for animals or reading a book.
+                I’m a full stack developer who enjoys creating thoughtful, user-focused tools. Whether I’m coding something helpful or hanging out with animals, I love building things that make a difference.
+
     </div>
     """, unsafe_allow_html=True)
 
