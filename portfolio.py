@@ -81,14 +81,13 @@ st.markdown("""
     
     /* --- General Content Styles --- */
     .tab-title {
-        text-align: center;
         font-size: 2.8rem !important;
         font-weight: 700;
         color: var(--primary-color) !important;
         padding-top: 2rem;
+        margin-bottom: 0.5rem; /* Added margin for spacing */
     }
     .tab-subtitle {
-        text-align: center;
         font-size: 1.2rem;
         color: var(--text-color);
         margin-bottom: 3rem;
@@ -145,7 +144,7 @@ st.markdown("""
     .skill-bar { height: 100%; border-radius: 20px; background-color: var(--primary-color); }
     .skill-level { font-size: 0.9rem; color: var(--secondary-color); font-style: italic; width: 100px; text-align: right; }
     
-    /* --- NEW Blog Navigation Styles --- */
+    /* --- Blog Navigation Styles --- */
     .blog-container {
         max-width: 800px;
         margin: auto;
@@ -158,30 +157,29 @@ st.markdown("""
         margin-top: 1.5rem;
     }
 
+    /* --- Custom Button Styles for Blog Navigation --- */
+    .stButton > button {
+        background-color: var(--primary-color);
+        color: white;
+        border: 2px solid var(--primary-color);
+        border-radius: 25px;
+        padding: 8px 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    .stButton > button:hover {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+        color: white;
+    }
+    .stButton > button:disabled {
+        background-color: #a88d83;
+        color: #a0a0a0;
+        border-color: #e0e0e0;
+    }
+
     /* --- Footer --- */
     .footer { margin-top: 5rem; padding-bottom: 2rem; text-align: center; font-size: 0.9rem; color: var(--secondary-color); }
-    /* --- Custom Button Styles for Blog Navigation --- */
-.stButton > button {
-    background-color: var(--primary-color);
-    color: white;
-    border: 2px solid var(--primary-color);
-    border-radius: 25px;
-    padding: 8px 20px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-/*Buttons*/
-.stButton > button:hover {
-    background-color: var(--secondary-color);
-    border-color: var(--secondary-color);
-    color: white;
-}
-
-.stButton > button:disabled {
-    background-color: #a88d83;
-    color: #a0a0a0;
-    border-color: #e0e0e0;
-}
     </style>
 """, unsafe_allow_html=True)
 
@@ -286,8 +284,13 @@ with tabs[0]:
 # --- PROJECTS TAB ---
 with tabs[1]:
     st.markdown('<div class="fade-in">', unsafe_allow_html=True)
-    st.markdown("<h1 class='tab-title'>My Projects</h1>", unsafe_allow_html=True)
-    st.markdown("<p class='tab-subtitle'>A selection of my recent work and explorations in code.</p>", unsafe_allow_html=True)
+    # THIS IS THE FIX: A single markdown call for the header
+    st.markdown("""
+    <div style="text-align: center;">
+        <h1 class='tab-title'>My Projects</h1>
+        <p class='tab-subtitle'>A selection of my recent work and explorations in code.</p>
+    </div>
+    """, unsafe_allow_html=True)
     st.markdown("""
     <div class='project-card'>
         <h3>🔍 RAG PDF Assistant (Hiveminds Internship)</h3>
@@ -316,8 +319,13 @@ with tabs[1]:
 # --- Reusable function for image galleries ---
 def display_image_gallery(folder_path, title, subtitle):
     st.markdown('<div class="fade-in">', unsafe_allow_html=True)
-    st.markdown(f"<h1 class='tab-title'>{title}</h1>", unsafe_allow_html=True)
-    st.markdown(f"<p class='tab-subtitle'>{subtitle}</p>", unsafe_allow_html=True)
+    # THIS IS THE FIX: A single markdown call for the header
+    st.markdown(f"""
+    <div style="text-align: center;">
+        <h1 class='tab-title'>{title}</h1>
+        <p class='tab-subtitle'>{subtitle}</p>
+    </div>
+    """, unsafe_allow_html=True)
     if not os.path.isdir(folder_path):
         st.warning(f"The folder '{folder_path}' was not found. Please create it and add your images.")
         st.markdown('</div>', unsafe_allow_html=True)
@@ -346,8 +354,13 @@ with tabs[4]:
 # --- BLOG TAB ---
 with tabs[5]:
     st.markdown('<div class="fade-in">', unsafe_allow_html=True)
-    st.markdown("<h1 class='tab-title'>Personal Blog</h1>", unsafe_allow_html=True)
-    st.markdown("<p class='tab-subtitle'>Thoughts, reflections, and stories from my journey.</p>", unsafe_allow_html=True)
+    # THIS IS THE FIX: A single markdown call for the header
+    st.markdown("""
+    <div style="text-align: center;">
+        <h1 class='tab-title'>Personal Blog</h1>
+        <p class='tab-subtitle'>Thoughts, reflections, and stories from my journey.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
     # --- Container for the blog post and navigation ---
     st.markdown("<div class='blog-container'>", unsafe_allow_html=True)
@@ -383,7 +396,7 @@ with tabs[5]:
     with next_col:
         if st.session_state.selected_blog < len(blog_posts) - 1:
             if st.button("Next Post ➡️"):
-                st.session_state.selected_blog += 1
+                st.session_state.selected_log += 1
                 st.rerun()
 
     st.markdown("</div>", unsafe_allow_html=True) # Close blog-nav-arrows
