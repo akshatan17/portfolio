@@ -1,7 +1,7 @@
 import streamlit as st
 import os
 
-# --- Page Config ---
+# --- Page Config (Called only once) ---
 st.set_page_config(
     page_title="Akshata Nagaraj | Portfolio",
     layout="wide",
@@ -79,19 +79,20 @@ st.markdown("""
         border-bottom: 3px solid var(--primary-color);
     }
     
-    /* --- General Content Styles --- */
-    .tab-title {
+    /* --- General & Specific Content Styles --- */
+    .section-header {
         text-align: center;
+        padding-top: 2rem;
+        margin-bottom: 3rem;
+    }
+    .section-header h1 {
         font-size: 2.8rem !important;
         font-weight: 700;
         color: var(--primary-color) !important;
-        padding-top: 2rem;
     }
-    .tab-subtitle {
-        text-align: center;
+    .section-header p {
         font-size: 1.2rem;
         color: var(--text-color);
-        margin-bottom: 3rem;
         max-width: 600px;
         margin-left: auto;
         margin-right: auto;
@@ -112,17 +113,8 @@ st.markdown("""
         box-shadow: 0 6px 16px rgba(0,0,0,0.08);
     }
     .project-card h3 { margin-top: 0; }
-    .project-links a { margin-right: 15px; font-size: 1rem; }
     
-    /* --- Specific Element Styles for "About Me" --- */
-    .profile-pic {
-        border-radius: 50%;
-        object-fit: cover;
-        width: 180px;
-        height: 180px;
-        border: 5px solid var(--card-bg);
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
+    /* --- Specific "About Me" Styles --- */
     .intro-text {
         font-size: 1.1rem;
         line-height: 1.8;
@@ -145,7 +137,7 @@ st.markdown("""
     .skill-bar { height: 100%; border-radius: 20px; background-color: var(--primary-color); }
     .skill-level { font-size: 0.9rem; color: var(--secondary-color); font-style: italic; width: 100px; text-align: right; }
     
-    /* --- NEW Blog Navigation Styles --- */
+    /* --- Blog Navigation Styles --- */
     .blog-container {
         max-width: 800px;
         margin: auto;
@@ -158,30 +150,29 @@ st.markdown("""
         margin-top: 1.5rem;
     }
 
+    /* --- Custom Button Styles for Blog Navigation --- */
+    .stButton > button {
+        background-color: var(--primary-color);
+        color: white;
+        border: 2px solid var(--primary-color);
+        border-radius: 25px;
+        padding: 8px 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    .stButton > button:hover {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+        color: white;
+    }
+    .stButton > button:disabled {
+        background-color: #a88d83;
+        color: #e0e0e0;
+        border-color: #e0e0e0;
+    }
+
     /* --- Footer --- */
     .footer { margin-top: 5rem; padding-bottom: 2rem; text-align: center; font-size: 0.9rem; color: var(--secondary-color); }
-    /* --- Custom Button Styles for Blog Navigation --- */
-.stButton > button {
-    background-color: var(--primary-color);
-    color: white;
-    border: 2px solid var(--primary-color);
-    border-radius: 25px;
-    padding: 8px 20px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-/*Buttons*/
-.stButton > button:hover {
-    background-color: var(--secondary-color);
-    border-color: var(--secondary-color);
-    color: white;
-}
-
-.stButton > button:disabled {
-    background-color: #a88d83;
-    color: #a0a0a0;
-    border-color: #e0e0e0;
-}
     </style>
 """, unsafe_allow_html=True)
 
@@ -226,6 +217,15 @@ blog_posts = [
 if 'selected_blog' not in st.session_state:
     st.session_state.selected_blog = 0
 
+# --- Reusable function for section headers ---
+def section_header(title, subtitle):
+    st.markdown(f"""
+    <div class="section-header">
+        <h1>{title}</h1>
+        <p>{subtitle}</p>
+    </div>
+    """, unsafe_allow_html=True)
+
 # --- Reusable function for skill bars ---
 def skill_bar(name, level_percent, level_text):
     return f"""
@@ -236,7 +236,32 @@ def skill_bar(name, level_percent, level_text):
     </div>
     """
 
-# --- Tab Definitions ---
+# --- Reusable function for image galleries ---
+def display_image_gallery(folder_path, title, subtitle):
+    st.markdown('<div class="fade-in">', unsafe_allow_html=True)
+    section_header(title, subtitle)
+    
+    if not os.path.isdir(folder_path):
+        st.warning(f"The folder '{folder_path}' was not found. Please create it and add your images.")
+        st.markdown('</div>', unsafe_allow_html=True)
+        return
+
+    image_files = sorted([f for f in os.listdir(folder_path) if f.lower().endswith((".png", ".jpg", ".jpeg"))])
+    
+    if not image_files:
+        st.info("No images found in this section yet. Check back soon!")
+    else:
+        for i in range(0, len(image_files), 3):
+            cols = st.columns(3, gap="medium")
+            for j in range(3):
+                if i + j < len(image_files):
+                    img_path = os.path.join(folder_path, image_files[i + j])
+                    with cols[j]:
+                        st.image(img_path, use_container_width=True)
+                        
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# --- Tab Definitions (Called only once) ---
 tab_titles = ["👤 About Me", "💻 Projects", "🎨 Artworks", "📷 Photos", "📜 Certificates", "✍️ Blog"]
 tabs = st.tabs(tab_titles)
 
@@ -286,8 +311,7 @@ with tabs[0]:
 # --- PROJECTS TAB ---
 with tabs[1]:
     st.markdown('<div class="fade-in">', unsafe_allow_html=True)
-    st.markdown("<h1 class='tab-title'>My Projects</h1>", unsafe_allow_html=True)
-    st.markdown("<p class='tab-subtitle'>A selection of my recent work and explorations in code.</p>", unsafe_allow_html=True)
+    section_header("My Projects", "A selection of my recent work and explorations in code.")
     st.markdown("""
     <div class='project-card'>
         <h3>🔍 RAG PDF Assistant (Hiveminds Internship)</h3>
@@ -313,29 +337,7 @@ with tabs[1]:
     """, unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
-# --- Reusable function for image galleries ---
-def display_image_gallery(folder_path, title, subtitle):
-    st.markdown('<div class="fade-in">', unsafe_allow_html=True)
-    st.markdown(f"<h1 class='tab-title'>{title}</h1>", unsafe_allow_html=True)
-    st.markdown(f"<p class='tab-subtitle'>{subtitle}</p>", unsafe_allow_html=True)
-    if not os.path.isdir(folder_path):
-        st.warning(f"The folder '{folder_path}' was not found. Please create it and add your images.")
-        st.markdown('</div>', unsafe_allow_html=True)
-        return
-    image_files = sorted([f for f in os.listdir(folder_path) if f.lower().endswith((".png", ".jpg", ".jpeg"))])
-    if not image_files:
-        st.info("No images found in this section yet. Check back soon!")
-    else:
-        for i in range(0, len(image_files), 3):
-            cols = st.columns(3, gap="medium")
-            for j in range(3):
-                if i + j < len(image_files):
-                    img_path = os.path.join(folder_path, image_files[i + j])
-                    with cols[j]:
-                        st.image(img_path, use_container_width=True)
-    st.markdown('</div>', unsafe_allow_html=True)
-
-# --- Calling the function for each image tab ---
+# --- IMAGE GALLERY TABS ---
 with tabs[2]:
     display_image_gallery("artworks", "My Artworks", "A gallery of my creative pieces.")
 with tabs[3]:
@@ -346,14 +348,13 @@ with tabs[4]:
 # --- BLOG TAB ---
 with tabs[5]:
     st.markdown('<div class="fade-in">', unsafe_allow_html=True)
-    st.markdown("<h1 class='tab-title'>Personal Blog</h1>", unsafe_allow_html=True)
-    st.markdown("<p class='tab-subtitle'>Thoughts, reflections, and stories from my journey.</p>", unsafe_allow_html=True)
+    section_header("Personal Blog", "Thoughts, reflections, and stories from my journey.")
 
-    # --- Container for the blog post and navigation ---
+    # Container for the blog post and navigation
     st.markdown("<div class='blog-container'>", unsafe_allow_html=True)
     
     # Display the selected blog post
-    selected_post = blog_posts[st.session_state.selected_blog]
+    selected_post = blog_posts[st.session_state.selected_blog] 
     st.markdown(f"""
     <div class="project-card">
         <div class="blog-content">
@@ -365,32 +366,31 @@ with tabs[5]:
     </div>
     """, unsafe_allow_html=True)
 
-    # --- Arrow Navigation ---
+    # Arrow Navigation
     st.markdown("<div class='blog-nav-arrows'>", unsafe_allow_html=True)
     
-    # Create columns for the buttons
     prev_col, counter_col, next_col = st.columns([2, 8, 1.5])
 
     with prev_col:
-        if st.session_state.selected_blog > 0:
-            if st.button("⬅️ Previous Post"):
-                st.session_state.selected_blog -= 1
-                st.rerun()
+        is_first_post = st.session_state.selected_blog == 0
+        if st.button("⬅️ Previous Post", disabled=is_first_post, key="prev_blog_post"):
+            st.session_state.selected_blog -= 1
+            st.rerun()
 
     with counter_col:
         st.markdown(f"<p style='text-align: center; margin-top: 0.5rem;'>{st.session_state.selected_blog + 1} of {len(blog_posts)}</p>", unsafe_allow_html=True)
 
     with next_col:
-        if st.session_state.selected_blog < len(blog_posts) - 1:
-            if st.button("Next Post ➡️"):
-                st.session_state.selected_blog += 1
-                st.rerun()
+        is_last_post = st.session_state.selected_blog >= len(blog_posts) - 1
+        if st.button("Next Post ➡️", disabled=is_last_post, key="next_blog_post"):
+            st.session_state.selected_blog += 1
+            st.rerun()
 
     st.markdown("</div>", unsafe_allow_html=True) # Close blog-nav-arrows
     st.markdown("</div>", unsafe_allow_html=True) # Close blog-container
     st.markdown('</div>', unsafe_allow_html=True) # Close fade-in
 
-# --- Footer ---
+# --- Footer (Called only once) ---
 st.markdown("""
 <div class="footer">
 Made with ❤️ & Python using Streamlit | © 2025 Akshata Nagaraj 
