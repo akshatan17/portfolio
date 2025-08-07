@@ -280,7 +280,22 @@ with tabs[0]:
         st.markdown("<h1 style='font-size: 3rem; margin-bottom: 0.5rem;'>Akshata Nagaraj</h1>", unsafe_allow_html=True)
         st.markdown("<h3 style='color: #4e342e; margin-top: 0; font-weight: 400;'>Full Stack Developer | Creative Coder | Animal Lover</h3>", unsafe_allow_html=True)
         st.markdown("<p class='intro-text'>I’m a full stack developer who enjoys creating thoughtful, user-focused tools. Whether I’m coding something helpful or hanging out with animals, I love building things that make a difference.</p>", unsafe_allow_html=True)
-    
+        
+        # --- ADDED: RESUME DOWNLOAD BUTTON ---
+        resume_path = "Akshata_Nagaraj_Resume.pdf"
+        if os.path.exists(resume_path):
+            with open(resume_path, "rb") as pdf_file:
+                PDFbyte = pdf_file.read()
+            st.download_button(
+                label="📄 Download My Resume",
+                data=PDFbyte,
+                file_name="Akshata_Nagaraj_Resume.pdf",
+                mime='application/octet-stream'
+            )
+        else:
+            st.info("Add your resume named 'Akshata_Nagaraj_Resume.pdf' to the folder to enable this button.")
+        # --- END OF ADDED SECTION ---
+
     st.divider()
 
     col1, col2 = st.columns(2, gap="large")
@@ -350,11 +365,22 @@ with tabs[5]:
     st.markdown('<div class="fade-in">', unsafe_allow_html=True)
     section_header("Personal Blog", "Thoughts, reflections, and stories from my journey.")
 
-    # Container for the blog post and navigation
+    # Initialize blog index safely
+    if "selected_blog" not in st.session_state:
+        st.session_state.selected_blog = 0
+
+    selected_index = st.session_state.selected_blog
+
+    # Bounds check to prevent crashes
+    if selected_index < 0:
+        selected_index = 0
+    elif selected_index >= len(blog_posts):
+        selected_index = len(blog_posts) - 1
+
+    selected_post = blog_posts[selected_index]
+
+    # Blog Container
     st.markdown("<div class='blog-container'>", unsafe_allow_html=True)
-    
-    # Display the selected blog post
-    selected_post = blog_posts[st.session_state.selected_blog] 
     st.markdown(f"""
     <div class="project-card">
         <div class="blog-content">
@@ -366,29 +392,33 @@ with tabs[5]:
     </div>
     """, unsafe_allow_html=True)
 
-    # Arrow Navigation
+    # Navigation Arrows
     st.markdown("<div class='blog-nav-arrows'>", unsafe_allow_html=True)
-    
     prev_col, counter_col, next_col = st.columns([2, 8, 1.5])
 
     with prev_col:
-        is_first_post = st.session_state.selected_blog == 0
-        if st.button("⬅️ Previous Post", disabled=is_first_post, key="prev_blog_post"):
-            st.session_state.selected_blog -= 1
-            st.rerun()
+        if selected_index > 0:
+            if st.button("⬅️ Previous Post", key="prev_blog_post"):
+                st.session_state.selected_blog -= 1
+                st.rerun()
+        else:
+            st.button("⬅️ Previous Post", key="prev_blog_post", disabled=True)
 
     with counter_col:
-        st.markdown(f"<p style='text-align: center; margin-top: 0.5rem;'>{st.session_state.selected_blog + 1} of {len(blog_posts)}</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='text-align: center; margin-top: 0.5rem;'>{selected_index + 1} of {len(blog_posts)}</p>", unsafe_allow_html=True)
 
     with next_col:
-        is_last_post = st.session_state.selected_blog >= len(blog_posts) - 1
-        if st.button("Next Post ➡️", disabled=is_last_post, key="next_blog_post"):
-            st.session_state.selected_blog += 1
-            st.rerun()
+        if selected_index < len(blog_posts) - 1:
+            if st.button("Next Post ➡️", key="next_blog_post"):
+                st.session_state.selected_blog += 1
+                st.rerun()
+        else:
+            st.button("Next Post ➡️", key="next_blog_post", disabled=True)
 
-    st.markdown("</div>", unsafe_allow_html=True) # Close blog-nav-arrows
-    st.markdown("</div>", unsafe_allow_html=True) # Close blog-container
-    st.markdown('</div>', unsafe_allow_html=True) # Close fade-in
+    st.markdown("</div>", unsafe_allow_html=True)  # Close nav arrows
+    st.markdown("</div>", unsafe_allow_html=True)  # Close blog-container
+    st.markdown('</div>', unsafe_allow_html=True)  # Close fade-in
+
 
 # --- Footer (Called only once) ---
 st.markdown("""
